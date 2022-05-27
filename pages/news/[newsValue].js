@@ -9,7 +9,7 @@ function DetailPage() {
 
   return (
     <>
-      <h1>The detail</h1>
+      <h1>The perfection its in the details: {newsV}</h1>
     </>
   );
 }
