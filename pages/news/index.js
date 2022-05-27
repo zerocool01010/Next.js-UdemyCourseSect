@@ -5,6 +5,10 @@ function NewsPage(){
     <h1>
         The news
     </h1>
+    <ul>
+        <li><a href="/news/next-js-itsmylife-getitdone">Next.js, what a great thing to be alive</a></li>
+        <li>Tomate un te</li>
+    </ul>
     </>
 }
 
