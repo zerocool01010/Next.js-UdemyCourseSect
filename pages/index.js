@@ -55,6 +55,7 @@ export async function getStaticProps() { //usado en el Static Site Generation (S
     props: {
       meetups: dummy_data,
     },
+    revalidate: 3600 //esto nos permite re-deployar cada X segundos (en este caso 3600 = 1 hora) para mantener la pagina actualizada con los ultimos datos updated
   };
 }
 
