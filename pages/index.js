@@ -44,7 +44,7 @@ const HomePage = (props) => {
   );
 };
 
-export async function getServerSideProps(context){ //a diferencia del SSG, el Server Side Rendering se ejecuta despues del deploy, y no antes como el Static Site Generation
+/* export async function getServerSideProps(context){ //a diferencia del SSG, el Server Side Rendering se ejecuta despues del deploy, y no antes como el Static Site Generation
     //si tienen en comun que este codigo se ejecuta del lado del servidor, y no llega al cliente
     //haremos el fetch de data de una API
 
@@ -52,15 +52,15 @@ export async function getServerSideProps(context){ //a diferencia del SSG, el Se
     const res = context.res; //obtengo una response
 
     //este approach es mejor cuando necesito fetchear data del server con mas frecuencia y cuando tengo mas uso y cambios dinamicos de datos en la pagina
-    
+
     return {
         props: {
             meetups: dummy_data
         }
     }
-}
+} */
 
-/* export async function getStaticProps() { //usado en el Static Site Generation (SSG) approach (opcion alternativa al Server Side Rendering (SSR))
+export async function getStaticProps() { //usado en el Static Site Generation (SSG) approach (opcion alternativa al Server Side Rendering (SSR))
   //reserved name in Next.js
   //Next busca por esta funcion y si la encuentra, ejecuta esta funcion durante el pre-renderizado, llama primero esta funcion antes de evaluar el componente
   //este codigo es como el que se ejecuta en el server, nunca llega al cliente, porque se ejecuta durante el build process, entonces nunca se ejecutara en las maquinas
@@ -73,6 +73,6 @@ export async function getServerSideProps(context){ //a diferencia del SSG, el Se
     },
     revalidate: 3600 //esto nos permite re-deployar cada X segundos (en este caso 3600 = 1 hora) para mantener la pagina actualizada con los ultimos datos updated
   };
-} */
+}
 
 export default HomePage;
