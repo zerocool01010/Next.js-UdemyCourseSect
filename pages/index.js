@@ -1,8 +1,7 @@
+import { MongoClient } from "mongodb";
 import MeetupList from "../components/meetups/MeetupList";
-import React, { useState, useEffect } from "react";
-import Layout from "../components/layout/Layout";
 
-const dummy_data = [
+/* const dummy_data = [
   {
     id: "01",
     image:
@@ -24,7 +23,7 @@ const dummy_data = [
     title: "Palenque Pyramid",
     address: "Cuauthemoc, 4693, Guadalajara",
   },
-];
+]; */
 
 const HomePage = (props) => {
   /*let timer = setTimeout(() => {
@@ -60,18 +59,32 @@ const HomePage = (props) => {
     }
 } */
 
-export async function getStaticProps() { //usado en el Static Site Generation (SSG) approach (opcion alternativa al Server Side Rendering (SSR))
+export async function getStaticProps() {
+  //usado en el Static Site Generation (SSG) approach (opcion alternativa al Server Side Rendering (SSR))
   //reserved name in Next.js
   //Next busca por esta funcion y si la encuentra, ejecuta esta funcion durante el pre-renderizado, llama primero esta funcion antes de evaluar el componente
   //este codigo es como el que se ejecuta en el server, nunca llega al cliente, porque se ejecuta durante el build process, entonces nunca se ejecutara en las maquinas
   //del cliente
 
   //haremos el fetch de data de una API
+    const client = await MongoClient.connect('mongodburlfdsfdafadfafadfadfadfadfadf') 
+    const db = client.db()
+
+    const meetupsCollection = db.collection('meetups')
+
+    const meetups = await meetupsCollection.find().toArray();
+    client.close();
+
   return {
     props: {
-      meetups: dummy_data,
+      meetups: meetups.map(m => ({ //puedo usar lo que traigo de la db de Mongo para renderizar los datos, en lugar de usar los ahora comentados dummy_data, pero tener en cuenta que primero debo cargarlos en la db cosa que no hice
+          title: m.title,
+          address: m.address,
+          image: m.image,
+          id: m._id.toString(),
+      })),
     },
-    revalidate: 3600 //esto nos permite re-deployar cada X segundos (en este caso 3600 = 1 hora) para mantener la pagina actualizada con los ultimos datos updated
+    revalidate: 3600, //esto nos permite re-deployar cada X segundos (en este caso 3600 = 1 hora) para mantener la pagina actualizada con los ultimos datos updated
   };
 }
 
